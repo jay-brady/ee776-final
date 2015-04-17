@@ -1,0 +1,35 @@
+Technical Specifications
+
+    The channel impulse response: channel4ecen776.mat  Download This channel was measured at Edwards AFB from an aircraft just as it had gone airborne on Runway 22L.
+    The channel is sampled at 16 samples/symbol.
+    The modulation is BPSK.
+    The pulse shape is the square-root raised-cosine pulse shape with 50 % excess bandwidth (or roll-off factor = 0.5).
+
+Ungerboeck Observation Model
+
+    Derive the Ungerboeck Observation Model. Use the 85% total energy criteria for pruning the downsampled auto-correlation function.
+    MLSE Equalizer: Describe the MLSE equalizer and simulate the bit error rate (BER) performance of the MLSE equalizer with the Ungerboeck Observation Model.
+    Zero-Forcing Equalizer: Simulate the BER performance of the zero-forcing equalizer with the Ungerboeck Observation Model.
+    MMSE Equalizer: Simulate the BER performance of the MMSE equalizer with the Ungerboeck Observation Model.
+    Decision-Feedback Equalizer: Simulate the BER performance of the decision-feedback equalizer with the Ungerboeck Observation Model.
+
+Forney Observation Model
+
+    Derive the Forney Observation Model from the Ungerboeck Observation Model above.
+    MLSE Equalizer: Describe the MLSE equalizer and simulate the bit error rate (BER) performance of the MLSE equalizer with the Forney Observation Model.
+    Zero-Forcing Equalizer: Simulate the BER performance of the zero-forcing equalizer with the Forney Observation Model.
+    MMSE Equalizer: Simulate the BER performance of the MMSE equalizer with the Forney Observation Model.
+    Decision-Feedback Equalizer: Simulate the BER performance of the decision-feedback equalizer with the Forney Observation Model.
+
+Unnamed Observation Model
+
+    Derive the Unnamed Observation Model. Use the 85% total energy criteria for pruning the downsampled composite channel.
+    MLSE Equalizer: Describe the MLSE equalizer and simulate the bit error rate (BER) performance of the MLSE equalizer with the Unnamed Observation Model.
+    Zero-Forcing Equalizer: Simulate the BER performance of the zero-forcing equalizer with the Unnamed Observation Model.
+    MMSE Equalizer: Simulate the BER performance of the MMSE equalizer with the Unnamed Observation Model.
+    Decision-Feedback Equalizer: Simulate the BER performance of the decision-feedback equalizer with the Unnamed Observation Model.
+
+Report
+
+Write a report summarizing your results. Compare and contrast the differences with both equalization techniques and the underlying model. 
+One of the central questions we seek to answer is equalizer performance with the unnamed observation model: is the unnamed observation model an approach with good performance?
