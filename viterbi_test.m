@@ -12,6 +12,7 @@ Mk = nan(2, length(I));
 survivor = nan(2, length(I));
 
 states = dec2bin(0:2^L-1);
+states = flipud(states);
 % t_states = dec2bin(0:2^L-1);
 % for i=1:2^L
 %     for j=1:L
@@ -34,18 +35,30 @@ for k=1:length(I)
     % iterate over states(top->bottom)
     for i=1:length(states)
         Ik = bin2dec(states(i,:));
+        if Ik == 0, Ikbpsk = -1; else Ikbpsk = Ik; end;
         % iterate over prev. states
         Mb = zeros(2,1);
         if k == 1
-            Mb(1) = real(Ik' * (2*y(k) - Ik*xo));
+            M(i,k) = real(Ikbpsk' * (2*y(k) - Ikbpsk*xo));
+            fprintf('k: %i Ikm1: %2i Ik: %2i yk: %.1f Mb: %2i\n', k, 0, Ikbpsk, y(k), M(i,k));
         else
-            Ikm1(1) = states(floor(Ik/2)+1,:);
-            Mb(1) = real(Ik' * (2*y(k) - Ik*xo - 2*sum(xi.*str2double(Ikm1(1,:)))));
+            Ikm1(1) = states(floor(Ik/2)+1,:); % get prev state
+            Ikm1bpsk = str2double(Ikm1(1,:)); % conv to double
+            Ikm1bpsk(Ikm1bpsk==0) = -1; % change 0 to -1 (for BPSK)
+            Mb(1) = M(1,k-1) + real(Ikbpsk' * (2*y(k) - Ikbpsk*xo - 2*sum(xi.*Ikm1bpsk)));
+            fprintf('k: %i Ikm1: %2i Ik: %2i yk: %.1f Mb: %2i\n', k, Ikm1bpsk, Ikbpsk, y(k), Mb(1));
+            
             Ikm1(2,:) = (states(floor(Ik/2)+length(states)/2+1,:));
-            Mb(2) = real(Ik' * (2*y(k) - Ik*xo - 2*sum(xi.*str2double(Ikm1(2,:)))));
+            Ikm1bpsk = str2double(Ikm1(2,:));
+            Ikm1bpsk(Ikm1bpsk==0) = -1;
+            Mb(2) = M(2,k-1) + real(Ikbpsk' * (2*y(k) - Ikbpsk*xo - 2*sum(xi.*Ikm1bpsk)));
+            fprintf('k: %i Ikm1: %2i Ik: %2i yk: %.1f Mb: %2i\n', k, Ikm1bpsk, Ikbpsk, y(k), Mb(2));
+            
             [maxMb, maxIdx] = max(Mb);
             M(i,k) = maxMb;
             S(i,k) = str2double(Ikm1(maxIdx,:));
+            
+            
         end
     end
 end
